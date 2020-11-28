@@ -1,0 +1,35 @@
+<main>
+  <div class="body">
+    <div class="header">
+      <h3>{{board.title}}</h3>
+    </div>
+    <div class="container w-100">
+      <div class="custom-card" *ngFor="let item of board.lists; let i = index">
+        <mat-card>
+          <div class="align-items-between"><span>{{item.title}} {{i+1}}</span>
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteList(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-card-content class="custom_content" cdkDropList id="{{item.id}}" cdkDragLockAxis="x" [cdkDropListConnectedTo]="connectedTo" [cdkDropListData]="board.lists[i].cards" (cdkDropListDropped)="drop($event)">
+            <mat-card *ngFor="let card of board.lists[i].cards; let cardIndex = index" cdkDrag>
+              <div class="align-items-between" (click)="editCard(i, cardIndex, card)"><span>{{card.title}}</span>
+                <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteCard(i, cardIndex)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+              
+            </mat-card>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="addCard(i)">Add new card...</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="custom-card">
+        <button mat-raised-button (click)="addList()">Add new list...</button>
+      </div>
+    </div>
+  </div>
+</main>
+

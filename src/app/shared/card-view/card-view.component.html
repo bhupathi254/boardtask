@@ -1,0 +1,39 @@
+<h1 mat-dialog-title></h1>
+<div mat-dialog-content>
+
+    <mat-card>
+        <mat-form-field class="example-full-width">
+            <mat-label>Card Title</mat-label>
+            <input matInput placeholder="card title" name="title" [(ngModel)]="card.title" value="">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Card Description</mat-label>
+            <textarea matInput placeholder="Card Description" name="description"
+                [(ngModel)]="card.description"></textarea>
+        </mat-form-field>
+
+
+    </mat-card>
+    <mat-card>
+        <mat-form-field class="example-full-width">
+            <mat-label>Add Comment</mat-label>
+            <input matInput placeholder="comment" [(ngModel)]="comment.comment" value="" name="comment">
+        </mat-form-field>
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" (click)="addComment(comment);" [disabled]="!comment.comment">Add Comment</button>
+        </mat-card-actions>
+        <mat-card-content>
+            <mat-list role="list">
+                <mat-list-item *ngFor="let item of card.comments" role="listitem">
+                    <div mat-line>{{item.comment}}</div>
+                    <div mat-line>{{item.time | date}}</div>
+                </mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">close</button>
+    <button mat-button [mat-dialog-close]="card" color="primary" [disabled]="!card.title || !card.description || !card.comments.length" cdkFocusInitial>Submit</button>
+</div>
